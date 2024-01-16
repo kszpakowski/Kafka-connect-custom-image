@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.kszpakowski.kafka</groupId>
+    <artifactId>custom-connect-image</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>custom-connect-image</name>
+
+    <properties>
+        <connectors.output-directory>libs/connectors</connectors.output-directory>
+        <jdbc.drivers.output-directory>libs/jdbc-drivers</jdbc.drivers.output-directory>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>io.confluent</groupId>
+                                    <artifactId>kafka-connect-jdbc</artifactId>
+                                    <version>10.7.4</version>
+                                    <outputDirectory>${connectors.output-directory}</outputDirectory>
+                                    <destFileName>kafka-connect-jdbc.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.microsoft.sqlserver</groupId>
+                                    <artifactId>mssql-jdbc</artifactId>
+                                    <version>12.4.2.jre11</version>
+                                    <outputDirectory>${jdbc.drivers.output-directory}</outputDirectory>
+                                    <destFileName>mssql-jdbc-12.4.2.jre11.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+</project>
